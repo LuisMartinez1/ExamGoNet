@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Prueba";
+}
+<style>
+    .EstiloBAMSA {
+        border-color: #E6E6E6;
+        border-width: 1px;
+        border-style: solid;
+    }
+</style>
+
+<h1>Mi Vista Razor</h1>
+
+<button id="boton-ajax">Enviar solicitud Ajax</button>
+
+<ul id="respuesta-ajax"></ul>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(function () {
+            $('#boton-ajax').click(function () {
+                $.ajax({
+                    url: '@Url.Action("X", "N")',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (respuesta) {
+                        // Agregar elementos de respuesta a la lista
+                        var lista = $('#respuesta-ajax');
+                        lista.empty();
+                        $.each(respuesta, function (index, elemento) {
+                            lista.append('<li>' + elemento + '</li>');
+                        });
+
+                        // Aplicar estilo
+                        lista.addClass('EstiloBAMSA');
+                    }
+                });
+            });
+        });
+    </script>
+}
